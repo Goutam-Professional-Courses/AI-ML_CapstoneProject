@@ -1,0 +1,33 @@
+#### What was the main change in your strategy in this week compared to the last week? What prompted this change? Was it the model predictions, acquisition function behaviour or something else?
+
+* In the 1st week, I selected mid-way value (0.5) for each input features across functions of all dimensions. Depending upon the output value returned for any given function, we can make small changes to certain hyper-parameters to move towards higher output values. That is, we can adjust hyperparameters (e.g., confidence interval or z-score) that would direct us to search hitherto unexplored regions (exploration) or in the vicinity of already known high values (exploitation).
+
+#### Did you focus more on exploration (sampling uncertain areas) or exploitation (targeting promising areas)? Why? What trade-offs did you weigh?
+
+* Function 1: The output value returned was higher than the maximum output of the initial data-set. This means, we went in the right direction in the 1st week. This week, I used __confidence interval__: 0.80 (which makes `z_score` = 1.282) which strikes a kind of balance between exploring hitherto unknown areas and exploiting areas already discovered as close to optimum.
+* Function 2: The output value returned was higher than the maximum output of the initial data-set. This means, we went in the right direction in the 1st week. This week, I used __confidence interval__: 0.80 (which makes `z_score` = 1.282) which strikes a kind of balance between exploring hitherto unknown areas and exploiting areas already discovered as close to optimum. According to initial description (module 12) the function output is noisy, so I used a non-zero `alpha` parameter while initializing a `GaussianProcessRegressor`.
+* Function 3: The output value returned was higher than the maximum output of the initial data-set. This means, we went in the right direction in the 1st week. This week, I used __confidence interval__: 0.80 (which makes `z_score` = 1.282) which strikes a kind of balance between exploring hitherto unknown areas and exploiting areas already discovered as close to optimum.
+* Function 4: The output value returned was higher than the maximum output of the initial data-set. This means, we went in the right direction in the 1st week. This week, I used __confidence interval__: 0.80 (which makes `z_score` = 1.282) which strikes a kind of balance between exploring hitherto unknown areas and exploiting areas already discovered as close to optimum.
+* Function 5: The output value returned was lesser than the maximum output of the initial data-set. This means, we went in the opposite direction in the 1st week. This week, I used __confidence interval__: 0.99 (which makes `z_score` = 2.576) which should encourage exploration almost entirely.
+* Function 6: The output value returned was lesser than the maximum output of the initial data-set. This means, we went in the opposite direction in the 1st week. This week, I used __confidence interval__: 0.99 (which makes `z_score` = 2.576) which should encourage exploration almost entirely.
+* Function 7: The output value returned was lesser than the maximum output of the initial data-set. This means, we went in the opposite direction in the 1st week. This week, I used __confidence interval__: 0.99 (which makes `z_score` = 2.576) which should encourage exploration almost entirely.
+* Function 8: The output value returned was lesser than the maximum output of the initial data-set. This means, we went in the opposite direction in the 1st week. This week, I used __confidence interval__: 0.99 (which makes `z_score` = 2.576) which should encourage exploration almost entirely.
+
+#### Have any participant strategies, class discussions or recent outputs influenced how you approached this week's submission?
+
+* Discussions on visualization strategies to observe the behaviour of the functions against input features did give me nice ideas to generate graphical diagrams per each function.
+
+#### If you were to fit a simple linear or logistic regression model to your current data for one of the functions, which assumptions would you most likely violate? Consider aspects such as the shape of the response surface, noise levels or number of features.
+
+* Linear regression is suited for situations where input features vs. output values follows a (mostly) linear relationship. That is, the output tends to monotonically increase or decrease with changes to the input feature values. Thus, this technique is not ideal for maximisation (or minimisation) scenarios, which is what all these functions represent.
+* Logistic regression, despite the name, is a classification algorithm that can predict the probability of an expected output against a given input, belonging to a certain class. However, we are not dealing with classification tasks here, hence this technique is not a good fit.
+
+#### Are there any regions where the output appears roughly linear or where a decision boundary might form? How might a logistic regression classifier perform on this function, particularly in binary or threshold-based scenarios?
+
+* Most of the functions show 1 or more maxima/minima and are therefore, clearly not linear. The only exception to such behaviour is function 6, which looks like a mild curve descending (decreasing output value) from left to right and approaching a plateu at the top and the bottom. This is the closest we can get to a clearly discernible decision boundary among all 8 functions. A logistic regression classifier can be a viable model to be applied against function 6 and expected to perform reasonably well.
+
+#### Interpretability is a key advantage of linear and logistic regression. Did you find it useful to consider individual feature effects before deciding on your query point?
+
+* In my view, there are 2 functions that are suitable candidates for interpretability. These are functions 3 (drug discovery) & 6 (cake recipe).
+    * Function 3 does not look suitable for linear or logistic regression with current set of data-points, however, it does look like the optimum (closest to 0) output occurs when all 3 inputs (chemical compounds) are around 0.5. However, I have not considered individual feature effects for the next query point just yet.
+    * Function 6 seems a good use case for application of logistic regression. With current set of data-points, it seems input 1 between 0.7 - 0.8, input 4 between 0.65 - 0.75 and input 5 around 0.05 produce optimum (closest to 0) output. However, I have not considered individual feature effects for the next query point just yet.

@@ -48,7 +48,7 @@ grph.print_min_max_output(caption, x_grid, y_pred_means)
 # 4. Plot mean prediction surface
 # -----------------------------
 confid_intvl = 0.80
-grph.plot2D(
+grph.plotFunction(
     weekNbr, funcNbr, x_grid, y_pred_means, y_pred_sigmas, confid_intvl, X_inputs, Y_outputs, output_lower_limit=0, output_upper_limit=10, output_step=1
 )
 plt.show()

@@ -36,7 +36,7 @@ def populate_subplot(
     subplot.scatter(x=sample_input_points[:, inpt_idx], y=sample_output_values, c="tab:brown", marker="x")
 
 
-def plot2D(
+def plotFunction(
     weekNbr: int,
     funcNbr: int,
     grid_input_points: np.ndarray,
@@ -83,6 +83,25 @@ def plot2D(
         )
 
     fig_title = "Week: {}, Function: {}".format(weekNbr, funcNbr)
+    fig.suptitle(
+        fig_title,
+        horizontalalignment="center",
+        verticalalignment="top",
+        fontsize="large",
+        fontweight="bold",
+    )
+    plt.tight_layout()
+
+
+def plotFeatureImportance(weekNbr: int, funcNbr: int, importances_mean: np.ndarray, importances_sigma: np.ndarray):
+    imp_means_sorted = importances_mean.argsort()
+    idx_to_lbl = lambda idx: "Feature {}".format(idx + 1)
+    feature_labels = list(map(idx_to_lbl, imp_means_sorted))
+    fig = plt.figure(figsize=(8, 6))
+    subplot = fig.add_subplot(1, 1, 1)
+    subplot.barh(y=feature_labels, width=importances_mean[imp_means_sorted], xerr=importances_sigma[imp_means_sorted], height=0.4, color="tab:brown")
+    subplot.set_xlabel("Mean Decrease in Accuracy")
+    fig_title = "Feature Importance :: Week: {}, Function: {}".format(weekNbr, funcNbr)
     fig.suptitle(
         fig_title,
         horizontalalignment="center",

@@ -21,10 +21,11 @@ Y_outputs = dldr.load_cumulative_outputs(rootDir, weekNbr, funcNbr)
 
 kernel: Kernel = Matern(length_scale=1.0, length_scale_bounds="fixed", nu=np.inf)
 model = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=9)
-grid_size = 500
+grid_size = 200
 
 # Apply the model against points on an evaluation grid and capture the predicted mean & standard deviation.
 x_grid, y_pred_means, y_pred_covs = mtrn.runGPR(X_inputs, Y_outputs, 5, model, grid_size)
+y_pred_means = np.clip(y_pred_means, max=0)
 y_pred_sigmas = np.sqrt(np.diag(y_pred_covs))
 
 # -----------------------------

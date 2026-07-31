@@ -21,7 +21,7 @@ Y_outputs = dldr.load_cumulative_outputs(rootDir, weekNbr, funcNbr)
 
 kernel: Kernel = RBF(length_scale=1.0, length_scale_bounds="fixed")
 model = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=9)
-grid_size = 20
+grid_size = 100
 
 # Apply the model against points on an evaluation grid and capture the predicted mean & standard deviation.
 x_grid, y_pred_means, y_pred_covs = mtrn.runGPR(X_inputs, Y_outputs, 4, model, grid_size)

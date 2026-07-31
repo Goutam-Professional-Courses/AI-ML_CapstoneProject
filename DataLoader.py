@@ -50,11 +50,13 @@ def load_inputs(rootDir: Path, weekNbr: int, funcNbr: int) -> np.ndarray:
     wkDirName = "Week-{}".format(weekNbr)
     wkInputFile: Path = rootDir.joinpath(wkDirName, "inputs.txt")
     lineOfText: str = linecache.getline(str(wkInputFile), weekNbr)
+    #print(f'weekNbr: {weekNbr}, funcNbr: {funcNbr}, wkInputFile: {wkInputFile}.')
     thisWeekThisFunctionInputs: np.ndarray
     if not lineOfText.strip():
         thisWeekThisFunctionInputs = np.empty(0)
     else:
         thisWeekAllFunctionsInputs = parse_arrays_from_text(lineOfText)
+        #print(f'thisWeekAllFunctionsInputs size: {len(thisWeekAllFunctionsInputs)}')
         thisWeekThisFunctionInputs = thisWeekAllFunctionsInputs[funcNbr - 1]
     return thisWeekThisFunctionInputs
 
@@ -79,7 +81,7 @@ def load_cumulative_inputs(rootDir: Path, untilWeekNbr: int, funcNbr: int) -> np
     X_init_inputs = load_initial_inputs(initDataBaseDir, funcNbr)
     X_cumulative_inputs = X_init_inputs.copy()
 
-    for wkIdx in range(1, untilWeekNbr + 1):
+    for wkIdx in range(1, untilWeekNbr):
         thisFunctionWeeklyInputs = load_inputs(rootDir, wkIdx, funcNbr)
 
         if thisFunctionWeeklyInputs.size == 0:
@@ -89,6 +91,11 @@ def load_cumulative_inputs(rootDir: Path, untilWeekNbr: int, funcNbr: int) -> np
         # Combine initial and weekly input arrays.
         X_cumulative_inputs = np.append(X_cumulative_inputs, np.array([thisFunctionWeeklyInputs]), axis=0)
 
+    thisFunctionLatestInputs = load_inputs(rootDir, untilWeekNbr, funcNbr)
+    print(f"Week: {untilWeekNbr}, function {funcNbr}: Latest input data-point: {thisFunctionLatestInputs}")
+
+    # Add the latest data-point to the cumulative input data-points array.
+    X_cumulative_inputs = np.append(X_cumulative_inputs, np.array([thisFunctionLatestInputs]), axis=0)
     print(f"Week: {untilWeekNbr}, function {funcNbr}: Combined initial & weekly samples contain {len(X_cumulative_inputs)} input data-points.")
     return X_cumulative_inputs
 
@@ -100,7 +107,7 @@ def load_cumulative_outputs(rootDir: Path, untilWeekNbr: int, funcNbr: int) -> n
     Y_init_outputs = load_initial_outputs(initDataBaseDir, funcNbr)
     Y_cumulative_outputs = Y_init_outputs.copy()
 
-    for wkIdx in range(1, untilWeekNbr + 1):
+    for wkIdx in range(1, untilWeekNbr):
         thisFunctionWeeklyOutput = load_output(rootDir, wkIdx, funcNbr)
 
         if thisFunctionWeeklyOutput.size == 0:
@@ -109,6 +116,12 @@ def load_cumulative_outputs(rootDir: Path, untilWeekNbr: int, funcNbr: int) -> n
 
         # Combine initial and weekly output values.
         Y_cumulative_outputs = np.append(Y_cumulative_outputs, np.array([thisFunctionWeeklyOutput]), axis=0)
+
+    thisFunctionLatestOutput = load_output(rootDir, untilWeekNbr, funcNbr)
+    print(f"Week: {untilWeekNbr}, function {funcNbr}: Latest output value: {thisFunctionLatestOutput}")
+
+    # Add the latest output to the cumulative output values array.
+    Y_cumulative_outputs = np.append(Y_cumulative_outputs, np.array([thisFunctionLatestOutput]), axis=0)
 
     # Compute the maximum output value from the initial + weekly cumulative merged data-set.
     y_curr_max = np.max(Y_cumulative_outputs)

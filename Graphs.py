@@ -18,6 +18,15 @@ def populate_subplot(
     datapoints: dict = inpt_vs_otpt_pairs[inpt_idx]
     sigmapoints: dict = inpt_vs_otpt_sigma_pairs[inpt_idx]
     axes_keys = list(datapoints)
+
+    """     
+    if inpt_idx == 5:
+        print(f"axes_keys: {axes_keys}")
+        print("datapoints::")
+        for k, v in datapoints.items():
+            print(f"k: {k} --> v: {v}") 
+    """
+
     sigma_axes_keys = list(sigmapoints)
     otpt_values = datapoints[axes_keys[1]]
     otpt_sigmas = sigmapoints[sigma_axes_keys[1]]
@@ -33,7 +42,8 @@ def populate_subplot(
     subplot.set_xticks(xticks)
     subplot.set_yticks(yticks)
     subplot.hlines(yticks, xmin=np.min(xticks), xmax=np.max(xticks), colors=["c", "m", "y"])
-    subplot.scatter(x=sample_input_points[:, inpt_idx], y=sample_output_values, c="tab:brown", marker="x")
+    subplot.scatter(x=sample_input_points[:-1, inpt_idx], y=sample_output_values[:-1], c="tab:brown", marker="x")
+    subplot.scatter(x=sample_input_points[-1:, inpt_idx], y=sample_output_values[-1:], c="tab:orange", marker="o", zorder=2.0)
 
 
 def plotFunction(
@@ -118,7 +128,7 @@ def print_min_max_output(caption: str, X_inputs: np.ndarray, Y_outputs: np.ndarr
     Y_max_idx = np.argmax(Y_outputs)
     Y_min = Y_outputs[Y_min_idx]
     Y_max = Y_outputs[Y_max_idx]
-
+    print("Maximum actual output from training data: ", np.max(Y_outputs))
     print(caption)
     print("--------------------------------------------------------------------------------------------------------")
     for inpt_idx in range(input_cnt):

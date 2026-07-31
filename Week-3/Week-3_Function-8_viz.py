@@ -13,7 +13,7 @@ import Graphs as grph
 
 # Set root directory to load data-points, week & function numbers.
 rootDir: Path = Path("..")
-weekNbr: int = 2
+weekNbr: int = 3
 funcNbr: int = 8
 
 X_inputs = dldr.load_cumulative_inputs(rootDir, weekNbr, funcNbr)

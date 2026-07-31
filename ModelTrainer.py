@@ -10,7 +10,7 @@ def runGPR(
     caption = "Minimum & maximum output values (actual) so far and corresponding input co-ordinates."
     grph.print_min_max_output(caption, X_inputs, Y_outputs)
 
-    # Fit the model
+    # Train the model
     model.fit(X_inputs, Y_outputs)
 
     # -----------------------------
@@ -20,5 +20,6 @@ def runGPR(
 
     # Apply the model against points on an evaluation grid and capture the predicted mean & standard deviation.
     y_pred_means, y_pred_covs = model.predict(x_grid, return_cov=True)  # pyright: ignore[reportAssignmentType]
+    print("Maximum mean output predicted by GPR model: ", np.max(y_pred_means))
 
     return (x_grid, y_pred_means, y_pred_covs)

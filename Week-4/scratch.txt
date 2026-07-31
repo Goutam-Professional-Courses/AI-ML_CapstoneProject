@@ -1,0 +1,32 @@
+Function 1: Output returned against this week's query point is lesser than the maximum output up until previous week. This means, we went in the opposite direction to the maximum output.
+This week, I used __confidence interval__: 0.99 (which makes `z_score` = 2.576) which should encourage exploration almost entirely. GPR prediction hints at a potentially high value
+region around input data-point [0.2, 0.2], which is in sync with the function graph.
+
+Function 2: Output returned against this week's query point is slightly lesser than the maximum output up until previous week. This means, we went in the opposite direction to the maximum output,
+although only just. This week, I made a heuristic decision based on the function graoh to select the next query point. GPR prediction hints at an unexplored region around 
+input data-point [0, 0], that may potentially contain a high value output.
+
+Function 3: Output returned against this week's query point is lesser than the maximum output up until previous week. This means, we went in the opposite direction to the maximum output.
+This week, I used __confidence interval__: 0.95 (which makes `z_score` = 1.96) which should encourage exploration almost entirely. GPR prediction hints at an unexplored region around 
+input data-point [0, 0, 0], that may potentially contain a high value output. The function graph also hints at the same region.
+
+Function 4: Output returned against this week's query point is equal to the maximum output up until previous week. This means, we are back to the same input data-point whic we tried the
+previous week. This week, I used __confidence interval__: 0.95 (which makes `z_score` = 1.96) which should encourage exploration almost entirely. GPR prediction hints at an unexplored 
+region around input data-point [0.372, 0.372, 0.372, 0.372], that may potentially contain a high value output. The function graph also hints at the same region.
+
+Function 5: Output returned against this week's query point is equal to the maximum output up until previous week. This means, we are back to the same input data-point whic we tried the
+previous week. This week, I made a heuristic decision based on the function graoh to select the next query point. The function graph indicates the maximum output is likely to occur around
+input data-point [1.0, 1.0, 1.0, 1.0], which is very close to the current location.
+
+Function 6: Output returned against this week's query point is lesser than the maximum output up until previous week. This means, we went in the opposite direction to the maximum output.
+This week, I used __confidence interval__: 0.80 (which makes `z_score` = 1.28) which should emphasize exploration over exploitation. GPR prediction hints at an unexplored region around 
+input data-point [0.418, 0.418, 0.418, 0.419, 0.419], that may potentially contain a high value output.
+
+Function 7: Output returned against this week's query point is lesser than the maximum output up until previous week. This means, we went in the opposite direction to the maximum output.
+This week, I made a heuristic decision based on the function graoh to select the next query point. I have added a new capability: permutation importance, that can calculate the relative
+importance of individual features in terms of effect on the output. According to this technique, the most impactful is feature 6, followed by features 1 & 4 as distance 2nd and 3rd. Based
+on this knowledge, I have picked a point that is likely to produce a high value output.
+
+Function 8: Output returned against this week's query point is slightly lesser than the maximum output up until previous week. This means, we went in the opposite direction to the maximum output,
+although only just.This week, I used __confidence interval__: 0.80 (which makes `z_score` = 1.28) which should emphasize exploration over exploitation. GPR prediction hints at a region quite close
+to the current optimum location, that may yield a higher output value.

@@ -13,14 +13,14 @@ import Graphs as grph
 
 # Set root directory to load data-points, week & function numbers.
 rootDir: Path = Path("..")
-weekNbr: int = 2
+weekNbr: int = 4
 funcNbr: int = 8
 
 X_inputs = dldr.load_cumulative_inputs(rootDir, weekNbr, funcNbr)
 Y_outputs = dldr.load_cumulative_outputs(rootDir, weekNbr, funcNbr)
 
-kernel: Kernel = Matern(length_scale=1.0, length_scale_bounds="fixed", nu=np.inf)
-model = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=9)
+kernel: Kernel = Matern(length_scale=1.0, length_scale_bounds=(1e-3, 1e3), nu=np.inf)
+model = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=9, normalize_y=True)
 grid_size = 500
 
 # Apply the model against points on an evaluation grid and capture the predicted mean & standard deviation.
